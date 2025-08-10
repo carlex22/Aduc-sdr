@@ -143,13 +143,6 @@ Onde:
 
 ---
 
-## 📜 Licença
-
-Este projeto é distribuído sob a licença MIT.  
-Sinta-se livre para usar, adaptar e evoluir — desde que **os ascendentes sejam honrados**. 🙏
-
----
-
 ## ✨ Nota Pessoal
 
 > Este projeto representa uma das criações mais importantes da minha vida.  
