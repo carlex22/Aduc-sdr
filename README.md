@@ -64,9 +64,9 @@ A geração de vídeo é governada por uma função seccional que define como ca
 
 Os vídeos a seguir, gerados pela prova de conceito `app.py`, validam a capacidade da ADUC-SDR de manter a coerência física e visual.
 
-| Exemplo 1: O Robô e o Trem | Exemplo 2: [Adicione um Título] |
+| Exemplo 1: Astronauta e o Tempo | Exemplo 2: A Saga do Salmão Refatorado |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <video src="https://github.com/carlex22/Aduc-sdr/raw/main/examples/exemplo_01.mp4" controls="controls" style="max-width: 400px;"></video> | <video src="https://github.com/carlex22/Aduc-sdr/raw/main/examples/exemplo_02.mp4" controls="controls" style="max-width: 400px;"></video> |
+| <video src="https://github.com/carlex22/Aduc-sdr/raw/refs/heads/main/examples/exemplo_01.mp4" controls="controls" style="max-width: 400px;"></video> | <video src="https://github.com/carlex22/Aduc-sdr/raw/refs/heads/main/examples/exemplo_02.mp4" controls="controls" style="max-width: 400px;"></video> |
 
 ---
 
