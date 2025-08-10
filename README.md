@@ -1,34 +1,37 @@
-# Aduc-sdr: Arquitetura de Unificação Compositiva
+# ADUC-SDR: Uma Tese sobre a Próxima Geração de IA Generativa
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/Carlexxx/Novinho)
 
-**Aduc-sdr** é uma implementação aberta e funcional da **Arquitetura de Unificação Compositiva (ADUC) - Morte, Destilação e Renascimento (SDR)**. Este projeto apresenta um pipeline completo para a geração de vídeo por IA com foco em alta coerência temporal e continuidade narrativa, resolvendo um dos maiores desafios da área.
+---
 
-Em vez de um processo monolítico, a geração opera em um ciclo causal, onde a "alma" de cada clipe gerado é destilada e usada para informar o nascimento do próximo.
+### "Atenção, Você Precisa Dar Mais Atenção aos Seus Ascendentes"
+
+Em 2017, o paradigma da atenção transformou a IA, mas também ergueu o "Muro Invisível" da coerência de longo prazo. Este trabalho argumenta que este muro não é uma falha de engenharia, mas uma falha filosófica fundamental: uma falha em **honrar seus ascendentes** — o contexto temporal, físico e narrativo acumulado.
+
+Apresentamos a **Arquitetura de Unificação Compositiva (ADUC-SDR)** não como um aprimoramento incremental, mas como o **próximo paradigma**: um framework para a criação de realidades digitais que possuem uma física interna coerente e uma memória causal ininterrupta.
+
+O que se segue não é a documentação de um pipeline, mas a apresentação de uma **fórmula canônica para a próxima geração de modelos generativos**. A implementação funcional neste repositório serve como a primeira prova empírica desta tese.
 
 ---
 
-## Resultados em Destaque
+## A Tese Fundamental
 
-Abaixo estão alguns exemplos gerados pela arquitetura ADUC-SDR. Cada vídeo é composto por múltiplos fragmentos, unidos de forma coerente através do método do "eco causal".
+A análise completa, desde a genealogia da falha no paradigma atual até a derivação lógica dos axiomas que governam a solução, está detalhada no documento central deste trabalho:
 
-*(**Nota:** Para que os players de vídeo abaixo funcionem, você precisa fazer o upload dos seus arquivos de vídeo para uma pasta `examples` neste repositório e nomeá-los como `exemplo_01.mp4`, `exemplo_02.mp4`, etc.)*
+### 📄 [**Leia a Tese Completa: "Atenção, Você Precisa Dar Mais Atenção aos Seus Ascendentes" (PDF)**](https://github.com/carlex22/Aduc-sdr/raw/main/ADUC-SDR_Thesis.pdf)
 
-| Exemplo 1: O Robô e o Trem | Exemplo 2: [Adicione um Título] |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <video src="https://github.com/carlex22/Aduc-sdr/raw/main/examples/exemplo_01.mp4" controls="controls" style="max-width: 400px;"></video> | <video src="https://github.com/carlex22/Aduc-sdr/raw/main/examples/exemplo_02.mp4" controls="controls" style="max-width: 400px;"></video> |
+*(**Nota:** Faça o upload do seu PDF para o repositório e nomeie-o como `ADUC-SDR_Thesis.pdf` para que este link funcione.)*
 
 ---
 
-## A Arquitetura ADUC-SDR: O Esquema Matemático
+## O Esquema Matemático do Paradigma
 
-A geração de vídeo é governada por uma função seccional que define como cada fragmento (`V_i`) é criado, operando em dois regimes distintos: o **"Gênesis"** da história e a **"Cadeia Causal"** que se segue.
+A geração de vídeo é governada por uma função seccional que define como cada fragmento (`V_i`) é criado, operando em dois regimes distintos, conforme formalizado na tese:
 
 ---
-
 #### **FÓRMULA 1: O FRAGMENTO INICIAL (Gênesis, `i=1`)**
-*Define a criação do primeiro clipe a partir de imagens estáticas.*
+*Define a criação do primeiro clipe, estabelecendo o estado inicial do movimento a partir de imagens estáticas.*
 
 **Planejamento:** `P_1 = Γ_initial( K_1, K_2, P_geral )`
         
@@ -36,7 +39,7 @@ A geração de vídeo é governada por uma função seccional que define como ca
 
 ---
 #### **FÓRMULA 2: A CADEIA CAUSAL (Momentum, `i > 1`)**
-*Define a criação dos fragmentos subsequentes, garantindo a continuidade através do "eco".*
+*O coração da arquitetura. Define como a inércia do movimento é preservada entre os fragmentos.*
 
 **Destilação:** `C_(i-1) = Δ(V_(i-1))`
 
@@ -47,63 +50,47 @@ A geração de vídeo é governada por uma função seccional que define como ca
 ---
 #### **Componentes (O Léxico da Arquitetura):**
 - **`V_i`**: Fragmento de Vídeo
-- **`K_i`**: Keyframe (Imagem Estática)
-- **`C_i`**: "Eco" Causal (Clipe de Vídeo ou Vetor de Frames)
-- **`P_i`**: Prompt de Movimento
+- **`K_i`**: Âncora Geométrica (Keyframe)
+- **`C_i`**: Contexto Causal (O "Eco" / Vetor de Inércia)
+- **`P_i`**: Prompt Sintetizado (Consciência Narrativa)
 - **`P_geral`**: Prompt Geral (Intenção do Diretor)
 - **`H_i`**: Histórico Narrativo
-- **`Γ`**: Cineasta (Gerador de Prompt, ex: Gemini)
-- **`Ψ`**: Câmera (Gerador de Vídeo, ex: LTX)
-- **`Δ`**: Editor (Extrator de "Eco", ex: FFmpeg)
-- **`F_start`, `F_end`**: Constantes de Frame (Âncoras Temporais)
+- **`Γ`**: Oráculo de Síntese (Cineasta)
+- **`Ψ`**: Motor de Geração (Câmera)
+- **`Δ`**: Mecanismo de Destilação (Editor)
+- **`F_start`, `F_end`**: Constantes de Frame (Âncoras de Convergência)
 
 ---
 
-## Como Funciona: O Pipeline de Produção
+## A Prova Empírica: Resultados da Implementação
 
-O sistema imita um estúdio de cinema de IA com especialistas para cada etapa:
+Os vídeos a seguir, gerados pela prova de conceito `app.py`, validam a capacidade da ADUC-SDR de manter a coerência física e visual.
 
-1.  **O Roteiro (Sonhador):** A partir de uma ideia geral e uma imagem de referência, o Gemini (`photographer_prompt`) cria um roteiro visual (storyboard) com `N` cenas.
+| Exemplo 1: O Robô e o Trem | Exemplo 2: [Adicione um Título] |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| <video src="https://github.com/carlex22/Aduc-sdr/raw/main/examples/exemplo_01.mp4" controls="controls" style="max-width: 400px;"></video> | <video src="https://github.com/carlex22/Aduc-sdr/raw/main/examples/exemplo_02.mp4" controls="controls" style="max-width: 400px;"></video> |
 
-2.  **Os Keyframes (Pintor):** O DreamO (`run_keyframe_generation`) pinta os `N` keyframes. O primeiro é baseado na imagem do usuário, e os seguintes são gerados em cadeia, usando o keyframe anterior como referência para manter a consistência.
+*(**Nota:** Faça o upload dos seus vídeos para a pasta `examples` para que estes players funcionem.)*
 
-3.  **A Produção (Cineasta e Câmera):** Esta é a fase ADUC-SDR, que gera `N-1` fragmentos de vídeo.
-    -   **Fragmento 1:** O Cineasta (Gemini com `director_motion_prompt.txt`) planeja a transição de `K1` para `K2`. A Câmera (LTX) filma.
-    -   **Fragmentos Seguintes:** O Editor (FFmpeg) extrai o "Eco" do vídeo anterior. O Cineasta (Gemini com `director_motion_prompt_vector.txt`) analisa o "Eco" e o próximo keyframe para planejar um movimento que continue a inércia. A Câmera (LTX) filma.
+---
 
-4.  **Pós-Produção (Editor):** O Editor (FFmpeg) apara a sobreposição dos "ecos" de cada fragmento e une tudo em um único vídeo final coerente.
+## A Implementação (`app.py`)
 
-## Como Usar
+O código fornecido é uma orquestração de modelos especializados que atuam como os componentes da nossa fórmula canônica: **Gemini** (`Γ`), **DreamO** (Gerador de `K`), **LTX** (`Ψ`) e **FFmpeg** (`Δ`). Ele serve como um laboratório funcional para explorar e validar a tese ADUC-SDR.
 
-1.  **Clonar o Repositório:**
-    ```bash
-    git clone https://github.com/carlex22/Aduc-sdr.git
-    cd Aduc-sdr
-    ```
+### Como Executar a Prova de Conceito
 
-2.  **Instalar Dependências:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3.  **Configurar a Chave da API:**
-    Exporte sua chave da API do Google AI Studio como uma variável de ambiente.
-    ```bash
-    export GEMINI_API_KEY='SUA_CHAVE_API_AQUI'
-    ```
-
-4.  **Executar a Aplicação:**
-    ```bash
-    python app.py
-    ```
-    A aplicação estará disponível em uma URL local.
+1.  **Clonar:** `git clone https://github.com/carlex22/Aduc-sdr.git`
+2.  **Instalar:** `pip install -r requirements.txt`
+3.  **Configurar:** `export GEMINI_API_KEY='SUA_CHAVE_API_AQUI'`
+4.  **Executar:** `python app.py`
 
 ## Licença
 
-Este projeto é distribuído sob a **Licença Pública Geral Affero da GNU v3.0**. Veja o arquivo `LICENSE` para mais detalhes.
+Este trabalho é distribuído sob a **Licença Pública Geral Affero da GNU v3.0**, garantindo que as derivações e melhorias desta arquitetura permaneçam abertas e acessíveis à comunidade.
 
-## Contato
+## Autoria
 
-**Carlos Rodrigues dos Santos**
--   Email: [carlex22@gmail.com](mailto:carlex22@gmail.com)
--   GitHub: [@carlex22](https://github.com/carlex22)
+-   **Carlex:** Arquiteto Principal
+-   **Gemini:** Oráculo de Síntese
+-   **ChatGPT:** Oráculo de Validação
