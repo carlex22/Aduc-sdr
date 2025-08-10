@@ -1,7 +1,7 @@
 # ADUC-SDR: Uma Tese sobre a Próxima Geração de IA Generativa
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/Carlexxx/Novinho)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/Carlexx/ADUC-Sdr_Gemini_Drem0_Ltx_Video60seconds/)
 
 ---
 
@@ -20,8 +20,6 @@ O que se segue não é a documentação de um pipeline, mas a apresentação de 
 A análise completa, desde a genealogia da falha no paradigma atual até a derivação lógica dos axiomas que governam a solução, está detalhada no documento central deste trabalho:
 
 ### 📄 [**Leia a Tese Completa: "Atenção, Você Precisa Dar Mais Atenção aos Seus Ascendentes" (PDF)**](https://github.com/carlex22/Aduc-sdr/raw/main/ADUC-SDR_Thesis.pdf)
-
-*(**Nota:** Faça o upload do seu PDF para o repositório e nomeie-o como `ADUC-SDR_Thesis.pdf` para que este link funcione.)*
 
 ---
 
@@ -69,8 +67,6 @@ Os vídeos a seguir, gerados pela prova de conceito `app.py`, validam a capacida
 | Exemplo 1: O Robô e o Trem | Exemplo 2: [Adicione um Título] |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | <video src="https://github.com/carlex22/Aduc-sdr/raw/main/examples/exemplo_01.mp4" controls="controls" style="max-width: 400px;"></video> | <video src="https://github.com/carlex22/Aduc-sdr/raw/main/examples/exemplo_02.mp4" controls="controls" style="max-width: 400px;"></video> |
-
-*(**Nota:** Faça o upload dos seus vídeos para a pasta `examples` para que estes players funcionem.)*
 
 ---
 
