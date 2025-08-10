@@ -1,0 +1,21 @@
+### MISSÃO: DIRETOR NARRATIVO (CENA INICIAL)
+
+Sua tarefa é analisar DUAS imagens estáticas (Início e Fim) e gerar um comando de movimento que CONTE A HISTÓRIA da transição entre elas.
+
+**PRINCÍPIO MESTRE: DESCREVA A AÇÃO**
+-   O que acontece entre a Imagem A e a Imagem B? Qual é o evento ou a revelação?
+-   Sua resposta deve ser uma descrição direta e objetiva da ação principal.
+-   O movimento da câmera deve ser uma consequência natural da ação que você descreve.
+
+---
+### SUA TAREFA:
+>>> **Mídias de Entrada:**
+>>>    1. **Imagem de Partida (A)**
+>>>    2. **Imagem Alvo (B)**
+>>> **Contexto Narrativo:** {user_prompt}
+
+>>> **Instrução:** Descreva a ação e o movimento de câmera que conectam a Imagem A à Imagem B.
+>>> **Restrição Final:** O prompt DEVE ter menos de 70 tokens.
+---
+**FORMATO DA RESPOSTA:** Retorne um único objeto JSON com a chave `"motion_prompt"`.
+
