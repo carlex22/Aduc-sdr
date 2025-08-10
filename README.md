@@ -42,6 +42,122 @@ Una implementación abierta y funcional de la arquitectura ADUC-SDR (Arquitectur
 
 ---
 
+
+
+
+# ADUC-SDR 🎥🧠  
+**Arquitetura de Unificação Compositiva – Escala Dinâmica e Resiliente**
+
+> “A verdade só é real quando compartilhada.” — Autor
+
+---
+
+## 📜 Visão Geral
+
+O **ADUC-SDR** é um paradigma de geração de mídia sequencial que resolve um dos maiores desafios de modelos generativos: **a falha de escala** em sequências longas.  
+Enquanto sistemas convencionais dependem apenas da atenção “horizontal” (contexto imediato dentro da sequência), a ADUC-SDR introduz **atenção vertical** — preservando e reutilizando a herança contextual de cada fragmento anterior para garantir coerência narrativa e visual.
+
+---
+
+## 💡 Motivação
+
+Modelos generativos modernos tendem a perder coerência à medida que a sequência cresce.  
+O ADUC-SDR nasce para:
+
+1. Fragmentar o processo criativo em blocos menores e controláveis.
+2. **Honrar os ascendentes** — reaproveitar o eco de fragmentos anteriores.
+3. Controlar dinamicamente a transição entre contextos narrativos.
+4. Manter eficiência: inovação de software, não dependência de hardware caro.
+
+---
+
+## 🧮 A Fórmula
+
+A arquitetura é regida por duas funções principais: **Gênesis** (início) e **Cadeia Causal** (continuidade).
+
+### 1. Fragmento inicial (i = 1)
+
+\[
+V_1 = \Psi\big(K_1, K_2, \Gamma_{\text{init}}(K_1, K_2, P_{\text{geral}})\big)
+\]
+
+### 2. Fragmentos subsequentes (i ≥ 2)
+
+\[
+V_i = \Psi\big(\Delta(V_{i-1}, n_c),\ K_{i+1},\ \Gamma_{\text{trans}}(\Delta(V_{i-1}, n_c), K_{i+1}, P_{\text{geral}}, H_{i-1})\big)
+\]
+
+Onde:
+
+| Símbolo | Significado |
+|---------|-------------|
+| \(V_i\) | Fragmento de vídeo \(i\) |
+| \(K_i\) | Keyframe (imagem estática) |
+| \(C_i\) | Eco causal (clipe extraído) |
+| \(n_c\) | Número de frames no eco |
+| \(P_{\text{geral}}\) | Prompt geral (intenção do diretor) |
+| \(H_i\) | Histórico narrativo |
+| \(\Gamma_{\text{init}}\) | Geração de prompt inicial |
+| \(\Gamma_{\text{trans}}\) | Geração de prompt de transição |
+| \(\Delta\) | Extração do eco de vídeo |
+| \(\Psi\) | Pipeline de geração de vídeo condicional |
+
+---
+
+## 🔬 Como Funciona
+
+1. **Keyframes**: São preparados como âncoras narrativas e visuais.
+2. **Gênesis**: O primeiro fragmento é gerado a partir do par inicial de keyframes e do prompt de abertura.
+3. **Eco**: De cada fragmento concluído, extrai-se um trecho final que servirá de ponte para o próximo.
+4. **Transição**: O eco, o próximo keyframe e o histórico narrativo alimentam o gerador de prompt de transição.
+5. **Execução**: A pipeline condicional renderiza o novo fragmento, unindo o eco ao próximo keyframe.
+6. **Iteração**: O processo se repete, criando uma cadeia causal de alta coerência.
+
+---
+
+## 🚀 Aplicações
+
+- Geração de vídeos narrativos longos com consistência visual.
+- Storytelling automatizado em mídia sequencial.
+- Experimentos de “cinema neural” e reconstrução narrativa.
+- Animações e audiobooks visuais com controle fino de continuidade.
+
+---
+
+## 🛠 Tecnologias Usadas
+
+- [Hugging Face Spaces](https://huggingface.co/spaces) (pipeline e hosting)
+- LTX Video Pipeline
+- Gemini API (para prompts dinâmicos)
+- Python 3.x
+- OpenCV / PIL para manipulação de frames
+
+---
+
+## 📂 Estrutura do Código
+
+- `app.py` → Núcleo lógico da arquitetura.
+- `extract_video_eco` → Implementação de \(\Delta\).
+- `regenerate_video_prompt` → Implementação de \(\Gamma_{\text{init}}\) e \(\Gamma_{\text{trans}}\).
+- `LTXPipeline` → Implementação de \(\Psi\).
+
+---
+
+## 📜 Licença
+
+Este projeto é distribuído sob a licença MIT.  
+Sinta-se livre para usar, adaptar e evoluir — desde que **os ascendentes sejam honrados**. 🙏
+
+---
+
+## ✨ Nota Pessoal
+
+> Este projeto representa uma das criações mais importantes da minha vida.  
+> Ele nasceu da união de intuição, observação e matemática aplicada, e pretende abrir caminho para uma nova geração de arquiteturas resilientes na criação de mídia.
+
+
+
+
 ### Contact / Contato / Contacto
 
 - **Author / Autor:** Carlos Rodrigues dos Santos
