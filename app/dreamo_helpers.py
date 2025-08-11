@@ -62,38 +62,46 @@ class Generator:
         if torch.cuda.is_available(): torch.cuda.empty_cache()
 
     @torch.inference_mode()
-    # <<<<< MODIFICAÇÃO PRINCIPAL: Aceita uma lista de dicionários de referência >>>>>
+    # <<<<< CORREÇÃO IMPLEMENTADA: Gerenciamento de GPU atômico por chamada >>>>>
     def generate_image_with_gpu_management(self, reference_items, prompt, width, height):
-        ref_conds = []
-        
-        for idx, item in enumerate(reference_items):
-            ref_image_np = item.get('image_np')
-            ref_task = item.get('task')
-            
-            if ref_image_np is not None:
-                if ref_task == "id":
-                    ref_image = self.get_align_face(ref_image_np)
-                elif ref_task != "style":
-                    ref_image = self.bg_rm_model.inference(Image.fromarray(ref_image_np))
-                else: # Style usa a imagem original
-                    ref_image = ref_image_np
+        try:
+            self.to_gpu() # Move os modelos para a GPU no início de CADA chamada
 
-                ref_image_tensor = img2tensor(np.array(ref_image), bgr2rgb=False).unsqueeze(0) / 255.0
-                ref_image_tensor = (2 * ref_image_tensor - 1.0).to(self.gpu_device, dtype=torch.bfloat16)
+            ref_conds = []
+            
+            for idx, item in enumerate(reference_items):
+                ref_image_np = item.get('image_np')
+                ref_task = item.get('task')
                 
-                # O modelo DreamO espera o índice começando em 1
-                ref_conds.append({'img': ref_image_tensor, 'task': ref_task, 'idx': idx + 1})
-        
-        image = self.dreamo_pipeline(
-            prompt=prompt, 
-            width=width,
-            height=height,
-            num_inference_steps=12, 
-            guidance_scale=4.5,
-            ref_conds=ref_conds, 
-            generator=torch.Generator(device="cpu").manual_seed(42)
-        ).images[0]
-        return image
+                if ref_image_np is not None:
+                    if ref_task == "id":
+                        ref_image = self.get_align_face(ref_image_np)
+                    elif ref_task != "style":
+                        ref_image = self.bg_rm_model.inference(Image.fromarray(ref_image_np))
+                    else: # Style usa a imagem original
+                        ref_image = ref_image_np
+
+                    ref_image_tensor = img2tensor(np.array(ref_image), bgr2rgb=False).unsqueeze(0) / 255.0
+                    ref_image_tensor = (2 * ref_image_tensor - 1.0).to(self.gpu_device, dtype=torch.bfloat16)
+                    
+                    # O modelo DreamO espera o índice começando em 1
+                    ref_conds.append({'img': ref_image_tensor, 'task': ref_task, 'idx': idx + 1})
+            
+            image = self.dreamo_pipeline(
+                prompt=prompt, 
+                width=width,
+                height=height,
+                num_inference_steps=12, 
+                guidance_scale=4.5,
+                ref_conds=ref_conds, 
+                generator=torch.Generator(device="cpu").manual_seed(42)
+            ).images[0]
+
+            return image
+
+        finally:
+            self.to_cpu() # Garante que os modelos voltem para a CPU, mesmo se ocorrer um erro
+
 
     @torch.no_grad()
     def get_align_face(self, img):
