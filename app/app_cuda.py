@@ -24,7 +24,7 @@
 # Você deve ter recebido uma cópia da Licença Pública Geral Affero da GNU
 # junto com este programa. Se não, veja <https://www.gnu.org/licenses/>.
 
-# --- app_demo.py (NOVINHO-6.2: Demo Version) ---
+# --- app.py (NOVINHO-6.0: Eco + Déjà Vu) ---
 
 # --- Ato 1: A Convocação da Orquestra (Importações) ---
 import gradio as gr
@@ -42,51 +42,33 @@ from pathlib import Path
 import huggingface_hub
 import json
 import time
-import spaces
 
-# --- Variável de Controle do Modo Demo ---
-# Para habilitar a funcionalidade completa, mude esta variável para True.
-# Isso requer que o Space esteja rodando em um hardware de GPU.
-ENABLE_MODELS = False
+from inference import create_ltx_video_pipeline, load_image_to_tensor_with_resize_and_crop, ConditioningItem, calculate_padding
+from dreamo_helpers import dreamo_generator_singleton
 
-# Importações condicionais que dependem dos modelos
-if ENABLE_MODELS:
-    from inference import create_ltx_video_pipeline, load_image_to_tensor_with_resize_and_crop, ConditioningItem, calculate_padding
-    from dreamo_helpers import dreamo_generator_singleton
-else:
-    # Definimos placeholders para que o resto do código não falhe na importação
-    ConditioningItem = dict
+# --- Ato 2: A Preparação do Palco (Configurações) ---
+config_file_path = "configs/ltxv-13b-0.9.8-distilled.yaml"
+with open(config_file_path, "r") as file: PIPELINE_CONFIG_YAML = yaml.safe_load(file)
 
-# --- Ato 2: A Preparação do Palco (Configurações Condicionais) ---
-if ENABLE_MODELS:
-    config_file_path = "configs/ltxv-13b-0.9.8-distilled.yaml"
-    with open(config_file_path, "r") as file: PIPELINE_CONFIG_YAML = yaml.safe_load(file)
-
-    LTX_REPO = "Lightricks/LTX-Video"
-    models_dir = "downloaded_models_gradio"
-    Path(models_dir).mkdir(parents=True, exist_ok=True)
-    
-    print("MODO COMPLETO ATIVADO: Carregando pipelines LTX na CPU (estado de repouso)...")
-    distilled_model_actual_path = huggingface_hub.hf_hub_download(repo_id=LTX_REPO, filename=PIPELINE_CONFIG_YAML["checkpoint_path"], local_dir=models_dir, local_dir_use_symlinks=False)
-    pipeline_instance = create_ltx_video_pipeline(
-        ckpt_path=distilled_model_actual_path,
-        precision=PIPELINE_CONFIG_YAML["precision"],
-        text_encoder_model_name_or_path=PIPELINE_CONFIG_YAML["text_encoder_model_name_or_path"],
-        sampler=PIPELINE_CONFIG_YAML["sampler"],
-        device='cpu'
-    )
-    print("Modelos LTX prontos (na CPU).")
-else:
-    # Em modo demo, definimos as variáveis dos modelos como None para evitar erros.
-    pipeline_instance = None
-    dreamo_generator_singleton = None
-    PIPELINE_CONFIG_YAML = {}
-    print("MODO DEMO ATIVADO: Carregamento de modelos pesados ignorado.")
-
+LTX_REPO = "Lightricks/LTX-Video"
+models_dir = "downloaded_models_gradio"
+Path(models_dir).mkdir(parents=True, exist_ok=True)
 WORKSPACE_DIR = "aduc_workspace"
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+
 VIDEO_FPS = 24
 TARGET_RESOLUTION = 420
+
+print("Criando pipelines LTX na CPU (estado de repouso)...")
+distilled_model_actual_path = huggingface_hub.hf_hub_download(repo_id=LTX_REPO, filename=PIPELINE_CONFIG_YAML["checkpoint_path"], local_dir=models_dir, local_dir_use_symlinks=False)
+pipeline_instance = create_ltx_video_pipeline(
+    ckpt_path=distilled_model_actual_path,
+    precision=PIPELINE_CONFIG_YAML["precision"],
+    text_encoder_model_name_or_path=PIPELINE_CONFIG_YAML["text_encoder_model_name_or_path"],
+    sampler=PIPELINE_CONFIG_YAML["sampler"],
+    device='cpu'
+)
+print("Modelos LTX prontos (na CPU).")
 
 
 # --- Ato 3: As Partituras dos Músicos (Funções de Geração e Análise) ---
@@ -111,7 +93,7 @@ def extract_image_exif(image_path: str) -> str:
 
 def run_storyboard_generation(num_fragments: int, prompt: str, initial_image_path: str):
     if not initial_image_path: raise gr.Error("Por favor, forneça uma imagem de referência inicial.")
-    if not GEMINI_API_KEY: raise gr.Error("Chave da API Gemini não configurada! Esta função requer uma chave, mesmo em modo demo.")
+    if not GEMINI_API_KEY: raise gr.Error("Chave da API Gemini não configurada!")
     exif_metadata = extract_image_exif(initial_image_path)
     prompt_file = "prompts/unified_storyboard_prompt.txt"
     with open(os.path.join(os.path.dirname(__file__), prompt_file), "r", encoding="utf-8") as f: template = f.read()
@@ -128,7 +110,6 @@ def run_storyboard_generation(num_fragments: int, prompt: str, initial_image_pat
     except Exception as e: raise gr.Error(f"O Roteirista (Gemini) falhou ao criar o roteiro: {e}. Resposta recebida: {response.text}")
 
 def get_dreamo_prompt_for_transition(previous_image_path: str, target_scene_description: str) -> str:
-    if not GEMINI_API_KEY: raise gr.Error("Chave da API Gemini não configurada!")
     genai.configure(api_key=GEMINI_API_KEY)
     prompt_file = "prompts/img2img_evolution_prompt.txt"
     with open(os.path.join(os.path.dirname(__file__), prompt_file), "r", encoding="utf-8") as f: template = f.read()
@@ -137,16 +118,13 @@ def get_dreamo_prompt_for_transition(previous_image_path: str, target_scene_desc
     response = model.generate_content([director_prompt, "Previous Image:", img])
     return response.text.strip().replace("\"", "")
 
-@spaces.GPU(duration=180)
 def run_keyframe_generation(storyboard, ref_images_tasks, progress=gr.Progress()):
-    if not ENABLE_MODELS or dreamo_generator_singleton is None:
-        raise gr.Error("Modo Demo Ativado! Para gerar imagens, clone este Space, mude a variável 'ENABLE_MODELS' para True no arquivo app.py e use hardware de GPU.")
-    
     if not storyboard: raise gr.Error("Nenhum roteiro para gerar keyframes.")
     initial_ref_image_path = ref_images_tasks[0]['image']
     if not initial_ref_image_path or not os.path.exists(initial_ref_image_path): raise gr.Error("A imagem de referência principal (à esquerda) é obrigatória.")
     log_history = ""; generated_images_for_gallery = [] 
     try:
+        pipeline_instance.to('cpu'); gc.collect(); torch.cuda.empty_cache()
         dreamo_generator_singleton.to_gpu()
         with Image.open(initial_ref_image_path) as img: width, height = (img.width // 32) * 32, (img.height // 32) * 32
         keyframe_paths, current_ref_image_path = [initial_ref_image_path], initial_ref_image_path
@@ -171,11 +149,7 @@ def run_keyframe_generation(storyboard, ref_images_tasks, progress=gr.Progress()
             keyframe_paths.append(output_path); generated_images_for_gallery.append(output_path); current_ref_image_path = output_path
             yield {keyframe_log_output: gr.update(value=log_history), keyframe_gallery_output: gr.update(value=generated_images_for_gallery)}
     except Exception as e: raise gr.Error(f"O Pintor (DreamO) ou Diretor de Arte (Gemini) falhou: {e}")
-    finally:
-        if ENABLE_MODELS:
-            dreamo_generator_singleton.to_cpu()
-            gc.collect()
-            torch.cuda.empty_cache()
+    finally: dreamo_generator_singleton.to_cpu(); gc.collect(); torch.cuda.empty_cache()
     log_history += "\nPintura de todos os keyframes concluída.\n"
     yield {keyframe_log_output: gr.update(value=log_history), keyframe_gallery_output: gr.update(value=generated_images_for_gallery), keyframe_images_state: keyframe_paths}
 
@@ -197,24 +171,22 @@ def get_dynamic_motion_prompt(user_prompt, story_history, memory_media_path, pat
         genai.configure(api_key=GEMINI_API_KEY); model = genai.GenerativeModel('gemini-1.5-flash'); prompt_file = "prompts/dynamic_motion_prompt.txt"
         with open(os.path.join(os.path.dirname(__file__), prompt_file), "r", encoding="utf-8") as f: template = f.read()
         cinematographer_prompt = template.format(user_prompt=user_prompt, story_history=story_history, midpoint_scene_description=path_scene_desc, destination_scene_description=dest_scene_desc)
+        
         with imageio.get_reader(memory_media_path) as reader:
             mem_img = Image.fromarray(reader.get_data(0))
+            
         path_img, dest_img = Image.open(path_image_path), Image.open(destination_image_path)
         model_contents = ["START Image (from Kinetic Echo):", mem_img, "MIDPOINT Image (Path):", path_img, "DESTINATION Image (Destination):", dest_img, cinematographer_prompt]
         response = model.generate_content(model_contents)
         return response.text.strip()
     except Exception as e: raise gr.Error(f"O Cineasta de IA (Dinâmico) falhou: {e}. Resposta: {getattr(e, 'text', 'No text available.')}")
 
-@spaces.GPU(duration=360)
 def run_video_production(
     video_duration_seconds, video_fps, eco_video_frames, use_attention_slicing,
     fragment_duration_frames, mid_cond_strength, num_inference_steps,
     prompt_geral, keyframe_images_state, scene_storyboard, cfg, 
     progress=gr.Progress()
 ):
-    if not ENABLE_MODELS or pipeline_instance is None:
-        raise gr.Error("Modo Demo Ativado! Para gerar vídeos, clone este Space, mude a variável 'ENABLE_MODELS' para True no arquivo app.py e use hardware de GPU.")
-    
     video_total_frames = int(video_duration_seconds * video_fps)
     if not keyframe_images_state or len(keyframe_images_state) < 3: raise gr.Error("Pinte pelo menos 2 keyframes para produzir uma transição.")
     if int(fragment_duration_frames) > video_total_frames:
@@ -222,7 +194,8 @@ def run_video_production(
 
     log_history = "\n--- FASE 3/4: Iniciando Produção (Eco + Déjà Vu)...\n"
     yield {
-        production_log_output: log_history, video_gallery_glitch: [],
+        production_log_output: log_history, 
+        video_gallery_glitch: [],
         prod_media_start_output: gr.update(value=None),
         prod_media_mid_output: gr.update(value=None, visible=False),
         prod_media_end_output: gr.update(value=None),
@@ -247,6 +220,7 @@ def run_video_production(
                 log_history += f"  - Início (Big Bang): {os.path.basename(start_path)}\n  - Destino: {os.path.basename(destination_path)}\n"
                 current_motion_prompt = get_initial_motion_prompt(prompt_geral, start_path, destination_path, dest_scene_desc)
                 conditioning_items_data = [(start_path, 0, 1.0), (destination_path, int(video_total_frames), 1.0)]
+                
                 yield {
                     production_log_output: gr.update(value=log_history),
                     prod_media_start_output: gr.update(value=start_path),
@@ -257,10 +231,13 @@ def run_video_production(
                 memory_path, path_path, destination_path = kinetic_memory_path, keyframe_images_state[i+1], keyframe_images_state[i+2]
                 path_scene_desc, dest_scene_desc = scene_storyboard[i], scene_storyboard[i+1]
                 log_history += f"  - Memória Cinética (Vídeo): {os.path.basename(memory_path)}\n  - Caminho: {os.path.basename(path_path)}\n  - Destino: {os.path.basename(destination_path)}\n"
+                
                 mid_cond_frame_calculated = int(video_total_frames - fragment_duration_frames + eco_video_frames)
                 log_history += f"  - Frame de Condicionamento do 'Caminho' calculado: {mid_cond_frame_calculated}\n"
+
                 current_motion_prompt = get_dynamic_motion_prompt(prompt_geral, story_history, memory_path, path_path, destination_path, path_scene_desc, dest_scene_desc)
                 conditioning_items_data = [(memory_path, 0, 1.0), (path_path, mid_cond_frame_calculated, mid_cond_strength), (destination_path, int(video_total_frames), 1.0)]
+
                 yield {
                     production_log_output: gr.update(value=log_history),
                     prod_media_start_output: gr.update(value=memory_path),
@@ -279,12 +256,16 @@ def run_video_production(
                 video_total_frames=video_total_frames, video_fps=video_fps,
                 use_attention_slicing=use_attention_slicing, num_inference_steps=num_inference_steps
             )
+            
             log_history += f"  - LOG: Gerei o fragmento_{fragment_num} bruto com {actual_frames_generated} frames.\n"
             yield {production_log_output: log_history}
+            
             trimmed_fragment_path = os.path.join(WORKSPACE_DIR, f"fragment_{fragment_num}_trimmed.mp4")
             trim_video_to_frames(full_fragment_path, trimmed_fragment_path, int(fragment_duration_frames))
+            
             log_history += f"  - LOG: Reduzi o fragmento_{fragment_num} para {int(fragment_duration_frames)} frames.\n"
             yield {production_log_output: log_history}
+            
             is_last_fragment = (i == num_transitions - 1)
             if not is_last_fragment:
                 eco_output_path = os.path.join(WORKSPACE_DIR, f"eco_from_frag_{fragment_num}.mp4")
@@ -293,16 +274,15 @@ def run_video_production(
                 log_history += f"  - Novo Eco Cinético (Vídeo) criado: {os.path.basename(kinetic_memory_path)}\n"
             else:
                  log_history += f"  - Este é o último fragmento, não é necessário gerar um eco.\n"
+
             video_fragments.append(trimmed_fragment_path)
             yield {production_log_output: log_history, video_gallery_glitch: video_fragments}
+            
         progress(1.0, desc="Produção Concluída.")
         log_history += "\nProdução de todos os fragmentos concluída.\n"
         yield {production_log_output: log_history, video_gallery_glitch: video_fragments, fragment_list_state: video_fragments}
     finally:
-        if ENABLE_MODELS:
-            pipeline_instance.to('cpu')
-            gc.collect()
-            torch.cuda.empty_cache()
+        pipeline_instance.to('cpu'); gc.collect(); torch.cuda.empty_cache()
 
 def process_image_to_square(image_path: str, size: int = TARGET_RESOLUTION) -> str:
     if not image_path: return None
@@ -313,7 +293,6 @@ def process_image_to_square(image_path: str, size: int = TARGET_RESOLUTION) -> s
     except Exception as e: raise gr.Error(f"Falha ao processar a imagem de referência: {e}")
 
 def load_conditioning_tensor(media_path: str, height: int, width: int) -> torch.Tensor:
-    if not ENABLE_MODELS: return None
     if media_path.lower().endswith(('.mp4', '.mov', '.avi')):
         with imageio.get_reader(media_path) as reader:
             first_frame_np = reader.get_data(0)
@@ -328,30 +307,37 @@ def run_ltx_animation(
     width, height, seed, cfg, progress,
     video_total_frames, video_fps, use_attention_slicing, num_inference_steps
 ):
-    if not ENABLE_MODELS: return None, 0
     progress(0, desc=f"[Câmera LTX] Filmando Cena {current_fragment_index}...");
-    output_path = os.path.join(WORKSPACE_DIR, f"fragment_{current_fragment_index}_full.mp4")
-    target_device = pipeline_instance.device
+    output_path = os.path.join(WORKSPACE_DIR, f"fragment_{current_fragment_index}_full.mp4"); target_device = 'cuda' if torch.cuda.is_available() else 'cpu'
     try:
+        pipeline_instance.to(target_device)
         if use_attention_slicing: pipeline_instance.enable_attention_slicing()
+        
         conditioning_items = [ConditioningItem(load_conditioning_tensor(p, height, width).to(target_device), s, t) for p, s, t in conditioning_items_data]
+        
         actual_num_frames = int(round((float(video_total_frames) - 1.0) / 8.0) * 8 + 1)
         padded_h, padded_w = ((height - 1) // 32 + 1) * 32, ((width - 1) // 32 + 1) * 32
         padding_vals = calculate_padding(height, width, padded_h, padded_w)
         for item in conditioning_items: item.media_item = torch.nn.functional.pad(item.media_item, padding_vals)
+        
         first_pass_config = PIPELINE_CONFIG_YAML.get("first_pass", {}).copy()
         first_pass_config['num_inference_steps'] = int(num_inference_steps)
+
         kwargs = {"prompt": motion_prompt, "negative_prompt": "blurry, distorted, bad quality, artifacts", "height": padded_h, "width": padded_w, "num_frames": actual_num_frames, "frame_rate": video_fps, "generator": torch.Generator(device=target_device).manual_seed(int(seed) + current_fragment_index), "output_type": "pt", "guidance_scale": float(cfg), "timesteps": first_pass_config.get("timesteps"), "conditioning_items": conditioning_items, "decode_timestep": PIPELINE_CONFIG_YAML.get("decode_timestep"), "decode_noise_scale": PIPELINE_CONFIG_YAML.get("decode_noise_scale"), "stochastic_sampling": PIPELINE_CONFIG_YAML.get("stochastic_sampling"), "image_cond_noise_scale": 0.15, "is_video": True, "vae_per_channel_normalize": True, "mixed_precision": (PIPELINE_CONFIG_YAML.get("precision") == "mixed_precision"), "enhance_prompt": False, "decode_every": 4, "num_inference_steps": int(num_inference_steps)}
+        
         result_tensor = pipeline_instance(**kwargs).images
+        
         pad_l, pad_r, pad_t, pad_b = map(int, padding_vals); slice_h = -pad_b if pad_b > 0 else None; slice_w = -pad_r if pad_r > 0 else None
+        
         cropped_tensor = result_tensor[:, :, :actual_num_frames, pad_t:slice_h, pad_l:slice_w]
         video_np = (cropped_tensor[0].permute(1, 2, 3, 0).cpu().float().numpy() * 255).astype(np.uint8)
+        
         with imageio.get_writer(output_path, fps=video_fps, codec='libx264', quality=8) as writer:
             for i, frame in enumerate(video_np): writer.append_data(frame)
         return output_path, actual_num_frames
     finally:
-        if ENABLE_MODELS and use_attention_slicing:
-            pipeline_instance.disable_attention_slicing()
+        if use_attention_slicing: pipeline_instance.disable_attention_slicing()
+        pipeline_instance.to('cpu')
 
 def trim_video_to_frames(input_path: str, output_path: str, frames_to_keep: int) -> str:
     try:
@@ -364,9 +350,11 @@ def extract_last_n_frames_as_video(input_path: str, output_path: str, n_frames: 
         cmd_probe = f"ffprobe -v error -select_streams v:0 -count_frames -show_entries stream=nb_read_frames -of default=nokey=1:noprint_wrappers=1 \"{input_path}\""
         result = subprocess.run(cmd_probe, shell=True, check=True, text=True, capture_output=True)
         total_frames = int(result.stdout.strip())
+        
         if n_frames >= total_frames:
              shutil.copyfile(input_path, output_path)
              return output_path
+
         start_frame = total_frames - n_frames
         cmd_ffmpeg = f"ffmpeg -y -v error -i \"{input_path}\" -vf \"select='gte(n,{start_frame})'\" -vframes {n_frames} -an \"{output_path}\""
         subprocess.run(cmd_ffmpeg, shell=True, check=True, text=True)
@@ -377,11 +365,14 @@ def extract_last_n_frames_as_video(input_path: str, output_path: str, n_frames: 
 def concatenate_and_trim_masterpiece(fragment_paths: list, fragment_duration_frames: int, eco_video_frames: int, progress=gr.Progress()):
     if not fragment_paths: raise gr.Error("Nenhum fragmento de vídeo para concatenar.")
     progress(0.1, desc="Preparando fragmentos para montagem final...");
+    
     try:
         list_file_path = os.path.join(WORKSPACE_DIR, "concat_list.txt")
         final_output_path = os.path.join(WORKSPACE_DIR, "masterpiece_final.mp4")
         temp_files_for_concat = []
+        
         final_clip_len = int(fragment_duration_frames - eco_video_frames)
+
         for i, p in enumerate(fragment_paths):
             if i == len(fragment_paths) - 1:
                 temp_files_for_concat.append(os.path.abspath(p))
@@ -391,9 +382,12 @@ def concatenate_and_trim_masterpiece(fragment_paths: list, fragment_duration_fra
                 progress(0.1 + (i / len(fragment_paths)) * 0.8, desc=f"Cortando {os.path.basename(p)} para {final_clip_len} frames")
                 trim_video_to_frames(p, temp_path, final_clip_len)
                 temp_files_for_concat.append(temp_path)
+        
         progress(0.9, desc="Concatenando clipes...")
         with open(list_file_path, "w") as f:
-            for p_temp in temp_files_for_concat: f.write(f"file '{p_temp}'\n")
+            for p_temp in temp_files_for_concat:
+                f.write(f"file '{p_temp}'\n")
+        
         subprocess.run(f"ffmpeg -y -v error -f concat -safe 0 -i \"{list_file_path}\" -c copy \"{final_output_path}\"", shell=True, check=True, text=True)
         progress(1.0, desc="Montagem concluída!")
         return final_output_path
@@ -402,22 +396,7 @@ def concatenate_and_trim_masterpiece(fragment_paths: list, fragment_duration_fra
 
 # --- Ato 5: A Interface com o Mundo (UI) ---
 with gr.Blocks(theme=gr.themes.Soft()) as demo:
-    gr.Markdown("# NOVIM-6.2 (Painel de Controle do Diretor)\n*By Carlex & Gemini & DreamO - Versão de Demonstração*")
-    
-    if not ENABLE_MODELS:
-        gr.Warning(
-            """
-            **MODO DE DEMONSTRAÇÃO ATIVADO**
-            Você pode explorar a interface e usar a "Etapa 1: Gerar Roteiro" se tiver uma chave da API Gemini configurada.
-            Para habilitar a geração de imagens e vídeos (Etapas 2 e 3), você precisa:
-            1. **Fork este Space:** Clique no menu de três pontos ao lado do título e selecione "Duplicate this Space".
-            2. **Escolha um Hardware de GPU:** Na tela de duplicação, selecione um hardware de GPU (ex: T4 Small).
-            3. **Edite o `app.py`:** Na aba "Files" do seu novo Space, edite o arquivo `app.py`.
-            4. **Ative os Modelos:** Mude a linha `ENABLE_MODELS = False` para `ENABLE_MODELS = True`.
-            5. Salve o arquivo. O Space será reiniciado com a funcionalidade completa.
-            """
-        )
-
+    gr.Markdown("# NOVIM-6.0 (Painel de Controle do Diretor)\n*By Carlex & Gemini & DreamO*")
     if os.path.exists(WORKSPACE_DIR): shutil.rmtree(WORKSPACE_DIR)
     os.makedirs(WORKSPACE_DIR); Path("prompts").mkdir(exist_ok=True)
     
