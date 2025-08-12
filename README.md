@@ -85,6 +85,14 @@ O código fornecido é uma orquestração de modelos especializados que atuam co
 3.  **Configurar:** `export GEMINI_API_KEY='SUA_CHAVE_API_AQUI'`
 4.  **Executar:** `python app.py`
 
+### Demonstrações Interativas (Hugging Face Spaces)
+
+Para uma exploração interativa da arquitetura, sem a necessidade de instalação local, acesse nossos demos hospedados no Hugging Face Spaces:
+
+-   **[Demo Zero-GPU (Interface Simplificada)](https://huggingface.co/spaces/Carlexxx/Novinho)**
+-   **[Demo com Interface de Usuário (CPU)](https://huggingface.co/spaces/carlexx/ADUC-Sdr_Gemini_Drem0_Ltx_Video60seconds/)**
+-   **[Demo Acelerada (Disponibilidade Limitada)](https://huggingface.co/spaces/carlexxxx/ADUC-Sdr_Gemini_Drem0_Ltx_Video60seconds/)**
+
 ## Licença
 
 Este trabalho é distribuído sob a **Licença Pública Geral Affero da GNU v3.0**, garantindo que as derivações e melhorias desta arquitetura permaneçam abertas e acessíveis à comunidade.
