@@ -1,7 +1,7 @@
 # ADUC-SDR: Uma Tese sobre a Próxima Geração de IA Generativa
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/Carlexx/ADUC-Sdr_Gemini_Drem0_Ltx_Video60seconds/)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/Carlexxx/ADUC-Sdr_Gemini_Drem0_Ltx_Video60seconds/)
 
 ---
 
@@ -62,11 +62,15 @@ A geração de vídeo é governada por uma função seccional que define como ca
 
 ## A Prova Empírica: Resultados da Implementação
 
-Os vídeos a seguir, gerados pela prova de conceito `app.py`, validam a capacidade da ADUC-SDR de manter a coerência física e visual.
+Os vídeos a seguir, gerados pela prova de conceito `app.py`, validam a capacidade da ADUC-SDR de manter a coerência física e visual. Clique nas imagens para assistir às demonstrações no YouTube.
 
-| Exemplo 1: Astronauta e o Tempo | Exemplo 2: A Saga do Salmão Refatorado |
+| A Semente (O Estado Inicial) | Atenção!!! (A Cadeia Causal) |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <video src="https://github.com/carlex22/Aduc-sdr/raw/refs/heads/main/examples/exemplo_01.mp4" controls="controls" style="max-width: 400px;"></video> | <video src="https://github.com/carlex22/Aduc-sdr/raw/refs/heads/main/examples/exemplo_02.mp4" controls="controls" style="max-width: 400px;"></video> |
+| [![A Semente](https://img.youtube.com/vi/MI7N4U0fY2A/hqdefault.jpg)](https://www.youtube.com/watch?v=MI7N4U0fY2A) | [![Atenção!!!](https://img.youtube.com/vi/eYrjk09KaOw/hqdefault.jpg)](https://www.youtube.com/watch?v=eYrjk09KaOw) |
+
+**Para mais exemplos e testes contínuos da arquitetura, visite nosso canal de demonstrações:**
+
+### ➡️ **[Canal de Demos no YouTube](https://www.youtube.com/channel/UC3EgoJi_Fv7yuDpvfYNtoIQ/videos)**
 
 ---
 
