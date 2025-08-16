@@ -1,7 +1,7 @@
 # ADUC-SDR: Uma Tese sobre a Próxima Geração de IA Generativa
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/Carlexxx/ADUC-Sdr_Gemini_Drem0_Ltx_Video60seconds/)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/CARLEXsX/Aduc-srd_Novim)
 
 ---
 
@@ -89,9 +89,8 @@ O código fornecido é uma orquestração de modelos especializados que atuam co
 
 Para uma exploração interativa da arquitetura, sem a necessidade de instalação local, acesse nossos demos hospedados no Hugging Face Spaces:
 
--   **[Demo Zero-GPU (Interface Simplificada)](https://huggingface.co/spaces/Carlexxx/Novinho)**
--   **[Demo com Interface de Usuário (CPU)](https://huggingface.co/spaces/carlexx/ADUC-Sdr_Gemini_Drem0_Ltx_Video60seconds/)**
--   **[Demo Acelerada (Disponibilidade Limitada)](https://huggingface.co/spaces/carlexxxx/ADUC-Sdr_Gemini_Drem0_Ltx_Video60seconds/)**
+-   **[Demo Zero-GPU DreamO+Ltx (Interface Simplificada)](https://huggingface.co/spaces/Carlexxx/Novinho)**
+-   **[Beta Acelerada Flux+Ltx (Disponibilidade Limitada)](https://huggingface.co/spaces/CARLEXsX/Aduc-srd_Novim)**
 
 ## Licença
 
