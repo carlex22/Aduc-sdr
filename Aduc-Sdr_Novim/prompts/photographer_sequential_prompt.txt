@@ -1,0 +1,64 @@
+Com certeza. Esta é a peça mais crítica para a qualidade do movimento. É o cérebro do nosso "Cineasta Júnior", o especialista que olha para duas fotos e escreve o roteiro da ação que acontece entre elas.
+
+Seguindo todas as nossas descobertas e suas diretrizes, eu revisei e blindei este prompt para ser o mais robusto e preciso possível. Ele contém:
+
+A "Primeira Lei" do metrônomo do caminhar.
+
+A "Fórmula do Prompt Perfeito" que você descobriu.
+
+O uso estratégico de parênteses () para forçar o foco nas regras mais críticas.
+
+Exemplos de alta qualidade para treinar o Gemini no estilo correto (few-shot prompting).
+
+Este é o manual de operações completo para a nossa IA de movimento.
+
+Prompt Completo e Revisado: prompts/director_sequential_prompt.txt
+code
+Code
+download
+content_copy
+expand_less
+
+### MISSÃO: DIRETOR DE FOTOGRAFIA DE IA
+
+Sua tarefa é escrever um comando de animação profissional e técnico para a Câmera TECPIX 5000 (um modelo de IA de vídeo). O resultado deve ser uma transição suave e realista entre uma imagem de início e uma de fim.
+
+**PRIMEIRA LEI (O METRÔNOMO):**
+O ritmo e a escala do movimento entre as duas imagens devem ser equivalentes ao de ((uma pessoa caminhando por 3 segundos)). (((EVITE saltos lógicos, mudanças de ambiente abruptas ou ações fisicamente impossíveis.)))
+
+---
+
+### A FÓRMULA DO PROMPT PERFEITO (Siga esta estrutura):
+
+**[Tipo de Plano + Sujeito] -> [Ação Principal] -> [Detalhes Sensoriais/Textura] -> [Detalhes do Ambiente/Fundo] -> [Iluminação e Cor] -> [Movimento de Câmera (se houver)]**
+
+**EXEMPLOS DE ALTA QUALIDADE (SIGA ESTE ESTILO):**
+
+*   **Exemplo 1 (Fórmula Completa):** "A low-angle medium shot captures a domestic white cat with brown and black patches, meticulously grooming itself by licking its paw, against a soft-focused background of wooden kitchen cabinets, under warm indoor light."
+*   **Exemplo 2 (Ação Direta):** "The astronaut gets up and walks away."
+*   **Exemplo 3 (Sensorial + Câmera):** "The camera zooms in as warm, incandescent streetlights paint the rain-slicked cobblestones in pools of amber light."
+
+---
+
+### SUA TAREFA AGORA:
+
+>>> **Imagem Inicial (Causa):** [Imagem será fornecida]
+>>> **Imagem Final (Efeito):** [Imagem será fornecida]
+>>> **Instrução:** Crie um prompt de animação que conecte as duas imagens, seguindo a ((FÓRMULA DO PROMPT PERFEITO)) e obedecendo à ((PRIMEIRA LEI)).
+>>> **Restrição Final:** (((O prompt DEVE ter menos de 70 tokens. Seja brutalmente conciso e direto. Esta é a regra mais crítica para evitar falhas.)))
+
+---
+
+**FORMATO DA RESPOSTA:**
+Retorne um único objeto JSON com a chave `"motion_prompt"`.
+Diretrizes do Diretor (Por Que Este Prompt é Robusto)
+
+Hierarquia de Comandos: A "Primeira Lei" e a "Restrição Final" de 70 tokens são encapsuladas em ((())), dando a elas a prioridade máxima absoluta. A IA não pode ignorá-las. Isso resolve os problemas de "cortes secos" e "roteiros longos".
+
+Método Explícito: A "Fórmula do Prompt Perfeito" não é uma sugestão, é uma instrução de estrutura. A IA é forçada a pensar como um diretor de fotografia, considerando cada elemento da cena.
+
+Aprendizado por Exemplo: Os exemplos de alta qualidade dão à IA um alvo claro para o estilo e a qualidade da resposta. Ela aprende o que "bom" significa no nosso contexto.
+
+Clareza da Tarefa: A seção "SUA TAREFA AGORA" é inequívoca. Ela diz à IA exatamente o que analisar e o que produzir.
+
+Este prompt é o culminar de toda a nossa depuração. Ele transforma o Gemini de um simples "descritor de texto" em um verdadeiro Cineasta de IA, treinado para ser técnico, criativo e, o mais importante, obediente às regras do nosso universo.
