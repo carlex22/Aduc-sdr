@@ -1,6 +1,4 @@
-# 🇺🇸 ADUC-SDR: A Thesis on the Next Generation of Generative AI 🇺🇸
-
-# 🇧🇷 ADUC-SDR: Uma Tese sobre a Próxima Geração de IA Generativa 🇧🇷
+# 🇺🇸 ADUC-SDR: A Thesis on the Next Generation of Generative AI
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/CARLEXsX/Aduc-srd_Novim)
@@ -9,7 +7,7 @@
 
 ### "Attention, You Need to Pay More Attention to Your Ancestors"
 
-In 2017, the attention paradigm transformed AI but also erected the "Invisible Wall" of long-term coherence. This work argues that this wall is not an engineering flaw but a fundamental philosophical failure: a failure to **honor one's ancestors**—the accumulated temporal, physical, and narrative context.
+In 2017, the attention paradigm transformed AI, but it also erected the "Invisible Wall" of long-term coherence. This work argues that this wall is not an engineering flaw but a fundamental philosophical failure: a failure to **honor one's ancestors**—the accumulated temporal, physical, and narrative context.
 
 We present the **Architecture for Compositive Unification (ADUC-SDR)** not as an incremental improvement but as the **next paradigm**: a framework for creating digital realities that possess a coherent internal physics and an unbroken causal memory.
 
@@ -33,7 +31,7 @@ Video generation is governed by a sectional function that defines how each fragm
 #### **FORMULA 1: THE INITIAL FRAGMENT (Genesis, `i=1`)**
 *Defines the creation of the first clip, establishing the initial state of motion from static geometric anchors.*
 
-**Planning:** `P_1 = Γ_initial( K_1, K_2, P_geral )`
+**Planning:** `P_1 = Γ( K_1, K_2, P_general )`
         
 **Execution:** `V_1 = Ψ( { (K_1, F_start, ω_1), (K_2, F_end, ω_2) }, P_1 )`
 
@@ -45,75 +43,83 @@ Video generation is governed by a sectional function that defines how each fragm
 - `C_(i-1) = Δ_echo( V'_(i-1) )`
 - `D_(i-1) = Δ_dejavu( V_(i-1) )`
 
-**Planning:** `P_i = Γ_transition( C_(i-1), D_(i-1), K_(i+1), P_geral, H_(i-1) )`
+**Adaptive Planning:** `P_i = Γ( C_(i-1), D_(i-1), K_(i+1), P_general, H_(i-1), prompt_human )`
 
 **Execution:** `V_i = Ψ( { (C_(i-1), F_start, 1.0), (D_(i-1), F_mid, ω_dejavu), (K_(i+1), F_end, ω_dest) }, P_i )`
 
 ---
-#### **Components (Revised Lexicon):**
+#### **Components (Lexicon of the Architecture):**
 - **`V_i`**: Video Fragment.
-- **`V'_i`**: Trimmed Video Fragment (`n_corte`).
 - **`K_i`**: Geometric Anchor (Keyframe).
-- **`C_i`**: **Kinetic Causal Context** (The "Echo" / Inertia Vector, extracted from `V'_i`). Ensures immediate motion continuity.
-- **`D_i`**: **Trajectory Causal Context** (The "Déjà-Vu", extracted from `V_i` before trimming). Represents the "discarded future," forcing the new scene to follow the original path.
-- **`P_i`**: Synthesized Prompt (Narrative Awareness).
-- **`P_geral`**: General Prompt (Director's Intent).
-- **`H_i`**: Narrative History (Textual description of `V_i`).
-- **`Γ`**: Synthesis Oracle (Filmmaker / Director LLM).
-- **`Ψ`**: Generation Engine (Camera / LTX).
-- **`Δ`**: Distillation Mechanism (Editor / Deformes4D).
-- **`F_start`, `F_mid`, `F_end`**: Frame Constants (Convergence Anchors).
-- **`ω`**: **Convergence Weight (Strength)**. A scalar value [0, 1] that modulates the rigidity of an anchor, allowing for more fluid and creative transitions.
+- **`C_i`**: **Kinetic Causal Context** (The "Echo" / Inertia Vector).
+- **`D_i`**: **Trajectory Causal Context** (The "Déjà-Vu" / Path Anchor).
+- **`P_i`**: Synthesized Prompt (The AI's Intention).
+- **`H_i`**: Narrative History (The Semantic Memory).
+- **`Γ`**: **Adaptive Synthesis Oracle** (The Filmmaker / Director LLM).
+- **`Ψ`**: Generation Engine (The Camera / Specialist).
+- **`Δ`**: Distillation Mechanism (The Editor / Orchestrator).
+- **`ω`**: **Convergence Weight** (The Anchor's Strength).
 
 ---
 #### **Analysis of the Innovation:**
-The introduction of adjustable **convergence weights (`ω`)** for the anchors (especially the destination anchor, `ω_dest`) and the Déjà-Vu (`ω_dejavu`) is a crucial innovation. It transforms keyframes from "rigid destinations" into "suggested event horizons." This prevents information degradation along the chain because the start (`C_i`) and end (`K_i`) of each fragment are always anchored to high-fidelity states, yet the flexibility of the weights allows the AI to create new, fluid scenes instead of mechanical interpolations. Every restart can be subtly different, keeping the narrative alive.
+The introduction of adjustable **convergence weights (`ω`)** and the distinction between **Kinetic Context (`C`)** and **Trajectory Context (`D`)** are crucial innovations. They transform keyframes from "rigid destinations" into "suggested event horizons." The **Adaptive Planning (`Γ`)** ensures that human intent is reinterpreted in light of the narrative's current state, allowing the AI not just to follow instructions but to **tell a coherent story**. The result is a system that maintains physical and semantic continuity, enabling each fragment restart to be subtly different, thus keeping the narrative alive.
 
 ---
 
-## Empirical Proof: Implementation Results
+## Empirical Proof: Video Demonstrations
 
-The following videos, generated by the proof-of-concept `app.py`, validate ADUC-SDR's ability to maintain physical and visual coherence across multiple iterations of the Causal Chain. Click the images to watch the demonstrations on YouTube.
+The following videos, generated by the proof-of-concept, validate ADUC-SDR's ability to maintain physical and narrative coherence across multiple iterations. Click the images to watch.
 
-| The Seed (Genesis State) | Attention!!! (The Causal Chain) |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-| [![The Seed](https://img.youtube.com/vi/MI7N4U0fY2A/hqdefault.jpg)](https://www.youtube.com/watch?v=MI7N4U0fY2A) | [![Attention!!!](https://img.youtube.com/vi/eYrjk09KaOw/hqdefault.jpg)](https://www.youtube.com/watch?v=eYrjk09KaOw) |
+| The Seed (Genesis) | The Causal Chain (Momentum) | Complex Narrative (Loop) |
+| :---: | :---: | :---: |
+| [![Genesis](https://img.youtube.com/vi/MI7N4U0fY2A/hqdefault.jpg)](https://www.youtube.com/watch?v=MI7N4U0fY2A) | [![Causal Chain](https://img.youtube.com/vi/eYrjk09KaOw/hqdefault.jpg)](https://www.youtube.com/watch?v=eYrjk09KaOw) | [![Complex Narrative](https://img.youtube.com/vi/YOUR_VIDEO_ID_HERE/hqdefault.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID_HERE) |
 
-**For more examples and continuous testing of the architecture, visit our demonstration channel:**
+**For more examples, visit our Demos Channel on YouTube:**
 
 ### ➡️ **[Demos Channel on YouTube](https://www.youtube.com/channel/UC3EgoJi_Fv7yuDpvfYNtoIQ/videos)**
 
 ---
 
-## The Implementation (`app.py`)
+## The Implementation and Key Concepts
 
-The provided code is an orchestration of specialized models that act as the components of our canonical formula. It serves as a functional laboratory for exploring and validating the ADUC-SDR thesis.
+The provided code is an orchestration of specialized models that act as the components of our canonical formula.
 
-### How to Run the Proof of Concept
+#### Short Definition (for Thesis and Patent)
 
-1.  **Clone:** `git clone https://github.com/carlex22/Aduc-sdr.git`
-2.  **Install:** `pip install -r requirements.txt`
-3.  **Configure:** Add your API keys if necessary (e.g., `export GEMINI_API_KEY='YOUR_KEY_HERE'`).
-4.  **Run:** `python app.py`
+**ADUC** is a *pre-input* **prompt management framework** that:
+1.  **fragments** tasks exceeding any model's context limit.
+2.  **scales linearly** through a sequential process with **persisted memory**.
+3.  **distributes** sub-tasks to heterogeneous **specialists**.
+4.  **feeds back** to the next step with an **evaluation** of the current state to **regenerate objectives**.
 
-### Interactive Demos (Hugging Face Spaces)
+It is an **orchestration layer** that transforms the context limit into a controlled pipeline with **artificial intentionality**.
 
-For an interactive exploration of the architecture without local installation, access our demos hosted on Hugging Face Spaces:
+---
 
--   **[Scene Finalizer (Déjà-Vu Implementation)](https://huggingface.co/spaces/CARLEXsX/Aduc-srd_Novim)**
--   **[Internal Surgery (Generation from Scratch)](https://huggingface.co/spaces/Carlexxx/Novinho/)**
+## License and Patent Notice
 
-## License
+**License:** This project is licensed under the **AGPL v3.0**. Using this software over a network requires making the complete source code available.
+- **Copyright (C) 2025, Carlos Rodrigues dos Santos**.
 
-This work is distributed under the **GNU Affero General Public License v3.0**, ensuring that derivations and improvements of this architecture remain open and accessible to the community.
+**Patent Notice:** The **ADUC** architecture and method are **currently patent pending**. The reproduction or commercial exploitation of ADUC's core logic in independent systems may infringe upon pending patent rights.
 
-## Authorship
+---
 
--   **Carlex:** Principal Architect and Director
+### Contact
 
+-   **Author:** Carlos Rodrigues dos Santos
+-   **Email:** carlex22@gmail.com
+-   **GitHub:** [https://github.com/carlex22/Aduc-sdr](https://github.com/carlex22/Aduc-sdr)
 
+<br>
+<hr>
+<br>
 
-### 🇧🇷 "Atenção, Você Precisa Dar Mais Atenção aos Seus Ascendentes" 🇧🇷
+# 🇧🇷 ADUC-SDR: Uma Tese sobre a Próxima Geração de IA Generativa
+
+---
+
+### "Atenção, Você Precisa Dar Mais Atenção aos Seus Ascendentes"
 
 Em 2017, o paradigma da atenção transformou a IA, mas também ergueu o "Muro Invisível" da coerência de longo prazo. Este trabalho argumenta que este muro não é uma falha de engenharia, mas uma falha filosófica fundamental: uma falha em **honrar seus ascendentes** — o contexto temporal, físico e narrativo acumulado.
 
@@ -122,15 +128,6 @@ Apresentamos a **Arquitetura de Unificação Compositiva (ADUC-SDR)** não como 
 O que se segue não é a documentação de um pipeline, mas a apresentação de uma **fórmula canônica para a próxima geração de modelos generativos**. A implementação funcional neste repositório serve como a primeira prova empírica desta tese.
 
 ---
-
-## A Tese Fundamental
-
-A análise completa, desde a genealogia da falha no paradigma atual até a derivação lógica dos axiomas que governam a solução, está detalhada no documento central deste trabalho:
-
-### 📄 [**Leia a Tese Completa: "Atenção, Você Precisa Dar Mais Atenção aos Seus Ascendentes" (PDF)**](https://github.com/carlex22/Aduc-sdr/raw/main/ADUC-SDR_Thesis.pdf)
-
----
-
 ## O Esquema Matemático do Paradigma (Revisado)
 
 A geração de vídeo é governada por uma função seccional que define como cada fragmento (`V_i`) é criado. A arquitetura evoluiu para incorporar mecanismos de controle mais sofisticados, refletidos nestas fórmulas revisadas:
@@ -139,7 +136,7 @@ A geração de vídeo é governada por uma função seccional que define como ca
 #### **FÓRMULA 1: O FRAGMENTO INICIAL (Gênesis, `i=1`)**
 *Define a criação do primeiro clipe, estabelecendo o estado inicial do movimento a partir de âncoras geométricas estáticas.*
 
-**Planejamento:** `P_1 = Γ_initial( K_1, K_2, P_geral )`
+**Planejamento:** `P_1 = Γ( K_1, K_2, P_geral )`
         
 **Execução:** `V_1 = Ψ( { (K_1, F_start, ω_1), (K_2, F_end, ω_2) }, P_1 )`
 
@@ -151,69 +148,56 @@ A geração de vídeo é governada por uma função seccional que define como ca
 - `C_(i-1) = Δ_eco( V'_(i-1) )`
 - `D_(i-1) = Δ_dejavu( V_(i-1) )`
 
-**Planejamento:** `P_i = Γ_transition( C_(i-1), D_(i-1), K_(i+1), P_geral, H_(i-1) )`
+**Planejamento Adaptativo:** `P_i = Γ( C_(i-1), D_(i-1), K_(i+1), P_geral, H_(i-1), prompt_humano )`
 
 **Execução:** `V_i = Ψ( { (C_(i-1), F_start, 1.0), (D_(i-1), F_mid, ω_dejavu), (K_(i+1), F_end, ω_dest) }, P_i )`
 
 ---
-#### **Componentes (Léxico Revisado):**
+#### **Componentes (Léxico da Arquitetura):**
 - **`V_i`**: Fragmento de Vídeo.
-- **`V'_i`**: Fragmento de Vídeo aparado (`n_corte`).
 - **`K_i`**: Âncora Geométrica (Keyframe).
-- **`C_i`**: **Contexto Causal Cinético** (O "Eco" / Vetor de Inércia, extraído de `V'_i`). Garante a continuidade do movimento imediato.
-- **`D_i`**: **Contexto Causal de Trajetória** (O "Déjà-Vu", extraído de `V_i` antes do corte). Representa o "futuro descartado", forçando a nova cena a seguir o caminho original.
-- **`P_i`**: Prompt Sintetizado (Consciência Narrativa).
-- **`P_geral`**: Prompt Geral (Intenção do Diretor).
-- **`H_i`**: Histórico Narrativo (Descrição textual de `V_i`).
-- **`Γ`**: Oráculo de Síntese (Cineasta / LLM Diretor).
-- **`Ψ`**: Motor de Geração (Câmera / LTX).
-- **`Δ`**: Mecanismo de Destilação (Editor / Deformes4D).
-- **`F_start`, `F_mid`, `F_end`**: Constantes de Frame (Âncoras de Convergência).
-- **`ω`**: **Peso de Convergência (Força)**. Um valor escalar [0, 1] que modula a rigidez de uma âncora, permitindo transições mais fluidas e criativas.
+- **`C_i`**: **Contexto Causal Cinético** (O "Eco" / Vetor de Inércia).
+- **`D_i`**: **Contexto Causal de Trajetória** (O "Déjà-Vu" / Âncora de Caminho).
+- **`P_i`**: Prompt Sintetizado (A Intenção da IA).
+- **`H_i`**: Histórico Narrativo (A Memória Semântica).
+- **`Γ`**: **Oráculo de Síntese Adaptativo** (O Cineasta / LLM Diretor).
+- **`Ψ`**: Motor de Geração (A Câmera / Especialista).
+- **`Δ`**: Mecanismo de Destilação (O Editor / Orquestrador).
+- **`ω`**: **Peso de Convergência** (A Força da Âncora).
 
 ---
 #### **Análise da Inovação:**
-A introdução de **pesos de convergência (`ω`)** ajustáveis para as âncoras (especialmente a âncora de destino, `ω_dest`) e para o Déjà-Vu (`ω_dejavu`) é uma inovação crucial. Ela transforma os keyframes de "destinos rígidos" em "horizontes de eventos sugeridos". Isso impede que a informação se degrade ao longo da cadeia, pois o início (`C_i`) e o fim (`K_i`) de cada fragmento são sempre ancorados em estados de alta fidelidade, mas a flexibilidade dos pesos permite que a IA crie novas cenas fluidas, em vez de interpolações mecânicas. Todo reinício pode ser sutilmente diferente, mantendo a narrativa viva.
+A introdução de **pesos de convergência (`ω`)** ajustáveis e a distinção entre **Contexto Cinético (`C`)** e **Contexto de Trajetória (`D`)** são inovações cruciais. Elas transformam os keyframes de "destinos rígidos" em "horizontes de eventos sugeridos". O **Planejamento Adaptativo (`Γ`)** garante que a intenção humana seja reinterpretada à luz do estado atual da narrativa, permitindo que a IA não apenas siga instruções, mas que **conte uma história coerente**. O resultado é um sistema que mantém a continuidade física e semântica, permitindo que cada reinício de fragmento seja sutilmente diferente, mantendo a narrativa viva.
 
 ---
 
-## A Prova Empírica: Resultados da Implementação
+## A Implementação e os Conceitos-Chave
 
-Os vídeos a seguir, gerados pela prova de conceito, validam a capacidade da ADUC-SDR de manter a coerência física e visual através de múltiplas iterações da Cadeia Causal. Clique nas imagens para assistir às demonstrações no YouTube.
+O código fornecido é uma orquestração de modelos especializados que atuam como os componentes da nossa fórmula canônica.
 
-| Gênesis (Fórmula 1) | Cadeia Causal (Fórmula 2) |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-| [![A Semente](https://img.youtube.com/vi/MI7N4U0fY2A/hqdefault.jpg)](https://www.youtube.com/watch?v=MI7N4U0fY2A) | [![Atenção!!!](https://img.youtube.com/vi/eYrjk09KaOw/hqdefault.jpg)](https://www.youtube.com/watch?v=eYrjk09KaOw) |
+#### Definição Curta (para Tese e Patente)
 
-**Para mais exemplos e testes contínuos da arquitetura, visite nosso canal de demonstrações:**
+**ADUC** é um *framework pré-input* de **gerenciamento de prompts** que:
+1.  **fragmenta** tarefas que excedem o limite de contexto.
+2.  **escala linearmente** através de um processo sequencial com **memória persistida**.
+3.  **distribui** sub-tarefas a **especialistas** heterogêneos.
+4.  **realimenta** a próxima etapa com uma **avaliação** do estado atual para **regenerar objetivos**.
 
-### ➡️ **[Canal de Demos no YouTube](https://www.youtube.com/channel/UC3EgoJi_Fv7yuDpvfYNtoIQ/videos)**
+É uma **camada orquestradora** que transforma a limitação de contexto em uma pipeline controlada com **intencionalidade artificial**.
 
 ---
 
-## A Implementação (`app.py`)
+## Licença e Aviso de Patenteamento
 
-O código fornecido é uma orquestração de modelos especializados que atuam como os componentes da nossa fórmula canônica. Ele serve como um laboratório funcional para explorar e validar a tese ADUC-SDR.
+**Licença:** Este projeto é licenciado sob a **AGPL v3.0**. O uso deste software em um serviço de rede exige a disponibilização do código-fonte completo.
+- **Copyright (C) 2025, Carlos Rodrigues dos Santos**.
 
-### Como Executar a Prova de Conceito
+**Aviso de Patente:** A arquitetura e o método **ADUC** estão **atualmente em processo de patenteamento**. A reprodução ou exploração comercial da lógica central da ADUC em sistemas independentes pode infringir direitos de patente pendente.
 
-1.  **Clonar:** `git clone https://github.com/carlex22/Aduc-sdr.git`
-2.  **Instalar:** `pip install -r requirements.txt`
-3.  **Configurar:** Adicione suas chaves de API, se necessário (ex: `export GEMINI_API_KEY='SUA_CHAVE'`).
-4.  **Executar:** `python app.py`
+---
 
-### Demonstrações Interativas (Hugging Face Spaces)
+### Contato
 
-Para uma exploração interativa da arquitetura, sem a necessidade de instalação local, acesse nossos demos hospedados no Hugging Face Spaces:
-
--   **[Finalizador de Cenas (Implementação Déjà-Vu)](https://huggingface.co/spaces/CARLEXsX/Aduc-srd_Novim)**
--   **[Cirurgia Interna (Geração a partir do Zero)](https://huggingface.co/spaces/Carlexxx/Novinho/)**
-
-## Licença
-
-Este trabalho é distribuído sob a **Licença Pública Geral Affero da GNU v3.0**, garantindo que as derivações e melhorias desta arquitetura permaneçam abertas e acessíveis à comunidade.
-
-## Autoria
-
--   **Carlex:** Arquiteto Principal e Diretor
-   
+-   **Autor:** Carlos Rodrigues dos Santos
+-   **Email:** carlex22@gmail.com
+-   **GitHub:** [https://github.com/carlex22/Aduc-sdr](https://github.com/carlex22/Aduc-sdr)
