@@ -1,0 +1,36 @@
+# --- Core ML & AI Frameworks ---
+# Usamos versões específicas para garantir a reprodutibilidade.
+# diffusers está fixado em um commit específico da branch 'main' do GitHub para estabilidade.
+torch
+torchvision
+torchaudio
+transformers
+accelerate
+safetensors
+einops
+sentencepiece
+
+# O formato 'package @ git+...' é o padrão moderno para dependências do Git.
+git+https://github.com/huggingface/diffusers.git@main
+
+# --- User Interface ---
+#Gradio para uma que contém 'mount_app'
+gradio>=5.23.1
+gradio[oauth]
+fastapi
+uvicorn[standard]
+pydantic
+
+# --- Data Handling & I/O ---
+Pillow
+numpy
+PyYAML
+
+# --- Video & Image Processing ---
+opencv-python
+imageio
+imageio-ffmpeg
+av
+
+# --- Hugging Face Hub ---
+huggingface_hub
