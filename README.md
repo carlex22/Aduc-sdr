@@ -225,7 +225,6 @@ A introdução de **pesos de convergência (`ω`)** ajustáveis e a distinção 
 
 ---
 
----
 
 ## Análise da Implementação: Conectando a Teoria à Prática
 
@@ -275,6 +274,7 @@ A implementação atual é uma tradução fiel e robusta da arquitetura ADUC-SDR
 
 </details>
 
+---
 
 ## A Implementação e os Conceitos-Chave
 
