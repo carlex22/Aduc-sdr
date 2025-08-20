@@ -1,7 +1,7 @@
 # 🇺🇸 ADUC-SDR: A Thesis on the Next Generation of Generative AI
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/CARLEXsX/Aduc-srd_Novim)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/CarlexSxx/ADUC-sdr-novim)
 
 ---
 
