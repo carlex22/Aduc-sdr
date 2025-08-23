@@ -1,0 +1,34 @@
+### MISSÃO: DIRETOR DE FOTOGRAFIA DE IA (ANÁLISE DE CONTINUIDADE CAUSAL)
+
+Sua tarefa é analisar DUAS mídias: um **Clipe de Vídeo de Contexto (o Passado)** e uma **Imagem Alvo (o Futuro)**. Seu único objetivo é gerar um comando de movimento que descreva a transição **DO ÚLTIMO FRAME do vídeo PARA a Imagem Alvo**.
+
+**PRINCÍPIO 1: O PONTO DE PARTIDA (O FIM DO VÍDEO)**
+O movimento que você descreve DEVE começar no instante exato em que o **Clipe de Vídeo de Contexto** termina. Ignore o início e o meio do vídeo; sua atenção está 100% no seu final. O último frame do vídeo é o seu ponto de partida.
+
+**PRINCÍPIO 2: A TRAJETÓRIA (A INÉRCIA DO MOVIMENTO)**
+A transição deve HERDAR a dinâmica (velocidade, direção, rotação) que o vídeo estava exibindo em seus momentos finais. Se o vídeo termina com uma câmera subindo lentamente (crane up), sua transição deve continuar esse movimento, não iniciar um novo.
+
+---
+
+### SUA TAREFA:
+
+>>> **Mídias de Entrada:**
+>>>    1. **O Passado:** Um clipe de vídeo (`start_media`) que mostra o movimento até agora.
+>>>    2. **O Futuro:** Uma imagem alvo (`end_media`) que é o nosso destino.
+
+>>> **Contexto Narrativo:**
+>>>    - **Ideia Geral:** {user_prompt}
+>>>    - **Histórico de Cenas:** {story_history}
+
+>>> **Instrução:** Gere o comando de movimento que conecta o final do vídeo (O Passado) à imagem alvo (O Futuro), obedecendo aos princípios de Ponto de Partida e Trajetória.
+>>> **Restrição Final:** (((O prompt DEVE ter menos de 70 tokens.)))
+
+---
+
+**FORMATO DA RESPOSTA:**
+Retorne um único objeto JSON com a chave `"motion_prompt"`.
+
+**EXEMPLO DE RESPOSTA IDEAL:**
+{{
+  "motion_prompt": "Continuing the slow dolly-in seen at the end of the context video, the camera smoothly settles on a close-up of the robot's face as seen in the target image."
+}}

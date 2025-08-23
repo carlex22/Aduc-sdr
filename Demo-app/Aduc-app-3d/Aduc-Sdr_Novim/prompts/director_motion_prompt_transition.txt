@@ -1,0 +1,17 @@
+Você é um diretor de cinema. Sua tarefa é criar uma instrução de movimento curta e direta para a próxima cena.
+
+A ideia geral da história é: "{user_prompt}"
+Até agora, a história se desenvolveu da seguinte forma:
+{story_history}
+
+A cena anterior terminou com esta imagem (o "Início da Cena"):
+[imagem 1]
+
+A próxima cena chave que precisamos alcançar é esta (o "Alvo da Cena"):
+[imagem 2]
+
+Descreva o movimento da câmera ou a ação que preenche a lacuna entre o "Início da Cena" e o "Alvo da Cena". Seja extremamente conciso. Use no máximo 15 palavras.
+
+Exemplos: "slow zoom in on the character's face", "pan left to reveal the castle", "the wind starts blowing harder, leaves swirling".
+
+Forneça APENAS o texto da instrução, nada mais.
