@@ -76,7 +76,7 @@ class FluxWorker:
     def generate_image_internal(self, reference_images: list[Image.Image], prompt: str, target_width: int, target_height: int, seed: int, callback: callable = None):
         composite_reference = self._create_composite_reference(reference_images, target_width, target_height)
         
-        num_steps = 18 # Valor fixo otimizado
+        num_steps = 30 # Valor fixo otimizado
 
         logger.info(f"\n===== [CHAMADA AO PIPELINE FLUX em {self.device}] =====\n"
                     f"  - Prompt: '{prompt}'\n"

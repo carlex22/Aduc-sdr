@@ -21,4 +21,4 @@ specialists:
     
     # Aponta para o arquivo de configuração específico do modelo LTX.
     # Alterado para usar o modelo 0.9.8-dev.
-    config_file: "configs/ltxv-13b-0.9.8-dev.yaml"
+    config_file: "configs/ltxv-13b-0.9.8-distilled.yaml"

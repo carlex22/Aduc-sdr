@@ -1,9 +1,9 @@
 # 🇺🇸 ADUC-SDR: A Thesis on the Next Generation of Generative AI
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/EUIA/ADUC-sdr-novim)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/EU-IA/Aduc-sdr-VIDEO)
 
-https://huggingface.co/spaces/EUIA/ADUC-sdr-novim
+https://huggingface.co/spaces/EU-IA/Aduc-sdr-VIDEO
 ---
 
 ### "Attention, You Need to Pay More Attention to Your Ancestors"
