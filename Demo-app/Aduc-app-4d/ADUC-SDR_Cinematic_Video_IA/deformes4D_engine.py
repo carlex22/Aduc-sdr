@@ -315,20 +315,30 @@ class Deformes4DEngine:
             # artefatos, garantindo um resultado final limpo e mantendo a transferência causal.
             logger.info(f"  [Δ] Destilador (Δ) executando o Ciclo de Poda Causal...")
             
-            # Pega uma fatia da cauda de V_bruto que é grande o suficiente para conter o Eco e o Déjà-Vu.
-            last_trim = latents_brutos[:, :, -(latents_a_podar + 2):, :, :].clone()
+            # --- Início do Bloco de Lógica Crítica ---
+            # ETAPA 1: Isolar a "cauda longa" de V_bruto. Esta fatia é 1 chunk maior que a porção
+            # a ser podada, para nos permitir "recuperar" chunks para o Eco.
+            last_trim = latents_brutos[:, :, -(latents_a_podar+1):, :, :].clone()
             
-            # Extrai o Eco (C) dos 2 chunks iniciais desta fatia.
-            eco_latent_for_next_loop = last_trim[:, :, :ECO_LATENT_CHUNKS, :, :].clone()
+            # ETAPA 2: Extrair o Eco Causal (C). Ele é extraído dos 2 primeiros chunks da
+            # cauda isolada. Isso cria uma sobreposição de memória, garantindo que a inércia
+            # do final do clipe anterior seja perfeitamente transferida.
+            eco_latent_for_next_loop = last_trim[:, :, :ECO_LATENT_CHUNKS, :, :].clone()   
             
-            # Extrai o Déjà-Vu (D) do último chunk absoluto desta fatia (que é também o último de V_bruto).
+            # ETAPA 3: Extrair o Déjà-Vu (D). É o último chunk absoluto da geração
+            # exploratória, representando a memória do destino ideal alcançado.
             dejavu_latent_for_next_loop = last_trim[:, :, -1:, :, :].clone()
             
-            # Define o tensor para o vídeo final (V_final) removendo a cauda inteira, incluindo os chunks usados pelo Eco.
-            latents_video = latents_brutos[:, :, :-(latents_a_podar + 2), :, :].clone()
+            # ETAPA 4: Definir o tensor de vídeo canônico (V_final). Primeiro, removemos uma cauda
+            # que é 1 chunk MENOR que a poda planejada. Isso intencionalmente mantém os chunks
+            # que serão usados pelo Eco DENTRO do vídeo final.
+            latents_video = latents_brutos[:, :, :-(latents_a_podar-1), :, :].clone()
             
-            # Remove cirurgicamente os 2 primeiros chunks instáveis do vídeo final.
-            latents_video = latents_video[:, :, 2:, :, :]
+            # ETAPA 5: Saneamento. Removemos o primeiro chunk do vídeo, que empiricamente
+            # contém artefatos de inicialização da difusão.
+            latents_video = latents_video[:, :, 1:, :, :]
+            # --- Fim do Bloco de Lógica Crítica ---
+            
 
             logger.info(f"  [Δ] Shape do tensor para vídeo final: {latents_video.shape}")
             logger.info(f"    - (Δ.1) Déjà-Vu (D) destilado. Shape: {dejavu_latent_for_next_loop.shape}")
