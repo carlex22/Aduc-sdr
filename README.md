@@ -1,9 +1,9 @@
 # 🇺🇸 ADUC-SDR: A Thesis on the Next Generation of Generative AI
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/EU-IA/Aduc-sdr-VIDEO)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow)](https://huggingface.co/spaces/euiia/ADUC-SDR_Cinematic_Video_IA)
 
-https://huggingface.co/spaces/EU-IA/Aduc-sdr-VIDEO
+https://huggingface.co/spaces/euiia/ADUC-SDR_Cinematic_Video_IA
 ---
 
 ### "Attention, You Need to Pay More Attention to Your Ancestors"
@@ -20,7 +20,8 @@ What follows is not the documentation of a pipeline but the presentation of a **
 
 The complete analysis, from the genealogy of the failure in the current paradigm to the logical derivation of the axioms governing the solution, is detailed in the central document of this work:
 
-### 📄 [**Read the Full Thesis: "Attention, You Need to Pay More Attention to Your Ancestors" (PDF)**](https://github.com/carlex22/Aduc-sdr/raw/main/ADUC-SDR_Thesis.pdf)
+### 📄 [**Read the Full Thesis: "Attention, You Need to Pay More Attention to Your Ancestors v1.0" (PDF)**](https://github.com/carlex22/Aduc-sdr/raw/main/ADUC-SDR_Thesis.pdf)
+### 📄 [**Read the Full Thesis: "A Genealogia da Falha: ADUC-SDR 1.5**](https://github.com/carlex22/Aduc-sdr/raw/main/Aduc-Sdr_1.5.pdf)
 
 ---
 
@@ -293,6 +294,69 @@ O código fornecido é uma orquestração de modelos especializados que atuam co
 
 ---
 
+### 🤖 Ecossistema de Especialistas
+
+A arquitetura ADUC-SDR atua como um maestro, orquestrando um conjunto de modelos de IA de ponta que servem como 'especialistas' em suas respectivas áreas. Reconhecemos e agradecemos profundamente o trabalho fundamental das seguintes equipes e projetos, que tornam esta orquestração possível:
+
+*   **O Maestro (Γ) / O Cérebro Criativo:**
+    *   **Tecnologia:** **Google Gemini**
+    *   **Descrição:** Utilizado para todas as tarefas de raciocínio, planejamento e geração de linguagem, desde a criação do roteiro até a tomada de decisões cinematográficas e a geração de prompts para outros especialistas.
+    *   **Referência:** [https://deepmind.google/technologies/gemini/](https://deepmind.google/technologies/gemini/)
+
+*   **A Câmera (Ψ) / Geração de Vídeo:**
+    *   **Tecnologia:** **LTX-Video**
+    *   **Descrição:** O motor principal para a geração dos fragmentos de vídeo no espaço latente, formando o núcleo do especialista `Deformes4DEngine`.
+    *   **Referência:** [https://github.com/Lightricks/LTX-Video](https://github.com/Lightricks/LTX-Video) (by Lightricks)
+
+*   **O Diretor de Arte / Geração de Keyframes:**
+    *   **Tecnologia:** **FLUX.1-Kontext**
+    *   **Descrição:** Usado como o especialista para a geração das imagens de alta qualidade que servem como âncoras geométricas (Keyframes).
+    *   **Referência:** [https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) (by Black Forest Labs)
+
+*   **O Diretor de Som / Geração de Áudio:**
+    *   **Tecnologia:** **MMAudio**
+    *   **Descrição:** O especialista responsável por gerar a paisagem sonora para os clipes de vídeo, trazendo imersão ao resultado final.
+    *   **Referência:** [https://github.com/hkchengrex/MMAudio](https://github.com/hkchengrex/MMAudio) (by Cheng-I Wang et al.)
+
+*   **Especialista de Imagem (Alternativo):**
+    *   **Tecnologia:** **DreamO**
+    *   **Descrição:** Arquitetura de geração de imagem referenciada e incluída no ecossistema de especialistas do projeto.
+    *   **Referência:** [https://github.com/bytedance/DreamO](https://github.com/bytedance/DreamO) (by ByteDance)
+
+---
+
+### 🤖 Ecosystem of Specialists
+
+The ADUC-SDR architecture acts as a maestro, orchestrating a suite of state-of-the-art AI models that serve as 'specialists' in their respective domains. We acknowledge and are deeply grateful for the foundational work of the following teams and projects, which make this orchestration possible:
+
+*   **The Maestro (Γ) / The Creative Brain:**
+    *   **Technology:** **Google Gemini**
+    *   **Description:** Used for all reasoning, planning, and language generation tasks, from creating the storyboard to making cinematic decisions and generating prompts for other specialists.
+    *   **Reference:** [https://deepmind.google/technologies/gemini/](https://deepmind.google/technologies/gemini/)
+
+*   **The Camera (Ψ) / Video Generation:**
+    *   **Technology:** **LTX-Video**
+    *   **Description:** The main engine for generating video fragments in the latent space, forming the core of the `Deformes4DEngine` specialist.
+    *   **Reference:** [https://github.com/Lightricks/LTX-Video](https://github.com/Lightricks/LTX-Video) (by Lightricks)
+
+*   **The Art Director / Keyframe Generation:**
+    *   **Technology:** **FLUX.1-Kontext**
+    *   **Description:** Used as the specialist for generating the high-quality images that serve as geometric anchors (Keyframes).
+    *   **Reference:** [https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) (by Black Forest Labs)
+
+*   **The Sound Director / Audio Generation:**
+    *   **Technology:** **MMAudio**
+    *   **Description:** The specialist responsible for generating the soundscape for the video clips, bringing immersion to the final result.
+    *   **Reference:** [https://github.com/hkchengrex/MMAudio](https://github.com/hkchengrex/MMAudio) (by Cheng-I Wang et al.)
+
+*   **Image Specialist (Alternative):**
+    *   **Technology:** **DreamO**
+    *   **Description:** Image generation architecture referenced and included in the project's ecosystem of specialists.
+    *   **Reference:** [https://github.com/bytedance/DreamO](https://github.com/bytedance/DreamO) (by ByteDance)
+
+
+---
+
 ## Licença e Aviso de Patenteamento
 
 **Licença:** Este projeto é licenciado sob a **AGPL v3.0**. O uso deste software em um serviço de rede exige a disponibilização do código-fonte completo.
@@ -301,6 +365,8 @@ O código fornecido é uma orquestração de modelos especializados que atuam co
 **Aviso de Patente:** A arquitetura e o método **ADUC** estão **atualmente em processo de patenteamento**. A reprodução ou exploração comercial da lógica central da ADUC em sistemas independentes pode infringir direitos de patente pendente.
 
 ---
+
+
 
 ### Contato
 
