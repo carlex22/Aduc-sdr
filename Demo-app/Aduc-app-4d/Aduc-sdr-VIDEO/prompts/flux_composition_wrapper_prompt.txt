@@ -1,1 +1,0 @@
-From the provided reference images, create a single, natural, and cohesive scene where: {target_prompt}

@@ -1,4 +1,0 @@
-From the provided reference images, create a unified, cohesive image such that {target_prompt}.
-Maintain the identity and characteristics of each subject while adjusting their proportions, scale, and positioning to create a harmonious, naturally balanced composition.
-Blend and integrate all elements seamlessly with consistent lighting, perspective, and style.
-The final result should look like a single naturally captured scene where all subjects are properly positioned relative to each other, not an assembled collage.
