@@ -1,0 +1,71 @@
+torchao
+torchvision
+torchaudio
+transformers<4.41
+accelerate
+safetensors
+sentencepiece
+git+https://github.com/hkchengrex/MMAudio.git@main
+git+https://github.com/huggingface/diffusers.git@main
+gradio>=5.23.1
+gradio[oauth]
+fastapi
+uvicorn[standard]
+pydantic
+soundfile
+Pillow
+numpy
+PyYAML
+imageio
+imageio-ffmpeg
+huggingface_hub
+google-generativeai
+
+
+# Common
+einops                  # Tensor operations
+
+# Training
+torch==2.4.0                 # Torch
+omegaconf                # Configuration system.
+lpips                   # LPIPS model for VAE training
+
+# Dataloading
+bson                # bson for Image dataloading
+tensorflow           # Video dataloading
+opencv-python         # OpenCV
+sentencepiece          # For Text Encoder
+
+# Modeling
+rotary-embedding-torch   # Rotary positional embedding
+torchvision==0.19.0          # Torchvision
+tiktoken               # Tiktoken for generation
+transformers_stream_generator #LLM generation support
+
+# Metrics
+torchmetrics           # Core module for metric
+pycocotools           # COCO-related
+torch-fidelity           # FID-related
+
+# Experiment Tracking
+moviepy                # WandB Logging Image & Video
+imageio                # WandB Logging Image & Video
+tabulate               # Logging Table
+deepdiff               # Find difference of config
+
+# Testing
+parameterized          # Define multiple tests through decorators.
+numpy<2.0
+
+# Notebook
+mediapy               # Notebook Visualization
+
+# DevOPs
+black           # Code formatting
+flake8                # Code style
+isort                 # Import sorting
+pre-commit              # Pre-commit hooks
+expecttest             # Pytorch dist tests
+hypothesis           # Fix randomness
+av
+
