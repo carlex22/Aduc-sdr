@@ -124,6 +124,10 @@ class Deformes4DEngine:
         total_frames_brutos = self._quantize_to_multiple(int(seconds_per_fragment * FPS), FRAMES_PER_LATENT_CHUNK)
         frames_a_podar = self._quantize_to_multiple(int(total_frames_brutos * (trim_percent / 100)), FRAMES_PER_LATENT_CHUNK)
         latents_a_podar = frames_a_podar // FRAMES_PER_LATENT_CHUNK
+        
+        #if frames_a_podar % 2 == 0:
+        #    frames_a_podar = frames_a_podar-1
+        
         total_latent_frames = total_frames_brutos // FRAMES_PER_LATENT_CHUNK
 
         DEJAVU_FRAME_TARGET = frames_a_podar - 1 if frames_a_podar > 0 else 0
@@ -160,7 +164,7 @@ class Deformes4DEngine:
                conditioning_items.append(LatentConditioningItem(eco_latent_for_next_loop, 0, 1.0))
                conditioning_items.append(LatentConditioningItem(dejavu_latent_for_next_loop, DEJAVU_FRAME_TARGET, handler_strength))
             
-            if transition_type == "cut":
+            if transition_type == "cutx":
                 logger.info(f"Cinematic Director chose a 'cut'. Creating FFmpeg transition bridge...")
                 bridge_duration_seconds = FRAMES_PER_LATENT_CHUNK / FPS
                 bridge_video_path = video_encode_tool_singleton.create_transition_bridge(
@@ -170,10 +174,10 @@ class Deformes4DEngine:
                 )
                 bridge_pixel_tensor = self.read_video_to_tensor(bridge_video_path)
                 bridge_latent_tensor = vae_manager_singleton.encode(bridge_pixel_tensor)
-                final_fade_latent = bridge_latent_tensor[:, :, -1:, :, :]
-                conditioning_items.append(LatentConditioningItem(final_fade_latent, total_latent_frames - 1, 0.95))
-                img_dest = self._preprocess_image_for_latent_conversion(Image.open(destination_keyframe_path).convert("RGB"), target_resolution_tuple)
-                conditioning_items.append(LatentConditioningItem(self.pil_to_latent(img_dest), DESTINATION_FRAME_TARGET, destination_convergence_strength * 0.5))
+                final_fade_latent = bridge_latent_tensor[:, :, -2:, :, :]
+                conditioning_items.append(LatentConditioningItem(final_fade_latent, total_latent_frames - 16, 0.95))
+                #img_dest = self._preprocess_image_for_latent_conversion(Image.open(destination_keyframe_path).convert("RGB"), target_resolution_tuple)
+                #conditioning_items.append(LatentConditioningItem(self.pil_to_latent(img_dest), DESTINATION_FRAME_TARGET, destination_convergence_strength * 0.5))
                 del bridge_pixel_tensor, bridge_latent_tensor, final_fade_latent
                 if os.path.exists(bridge_video_path): os.remove(bridge_video_path)
             else:
@@ -193,8 +197,9 @@ class Deformes4DEngine:
             latents_video = latents_video[:, :, 1:, :, :]
             del last_trim, latents_brutos; gc.collect(); torch.cuda.empty_cache()
             
-            if transition_type == "cut":
+            if transition_type == "cutx":
                 eco_latent_for_next_loop, dejavu_latent_for_next_loop = None, None
+                
             
             cpu_latent = latents_video.cpu()
             latent_path = os.path.join(temp_latent_dir, f"latent_fragment_{i:04d}.pt")
